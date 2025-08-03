@@ -47,6 +47,62 @@ namespace myfirstapp
         {
             return a + b + c;
         }
+        // call by value
+        static void swap_value (int a, int b)
+        {
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+        // call by reference
+        
+        static void swap_ref (ref int a , ref int b)
+        {
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+        // using the call by value and by ref combined
+        // you can use the keyword out instead of ref if the parameters arent initialized
+        // but you must initialize them 
+        static string grade_test (int mark , ref string grade_exp , ref string grade_char)
+        {
+            if (mark >= 50)
+            {
+                if (mark > 90)
+                {
+                    grade_char = "A";
+                    grade_exp = "excellent";
+                }
+                 if (mark > 75)
+                {
+                    grade_char = "b";
+                    grade_exp = "very good";
+                }
+                if (mark > 60)
+                {
+                    grade_char = "c";
+                    grade_exp = "good";
+                }
+            
+            return "passed";
+            }
+            
+            else
+            {
+                grade_char = "f";
+                return "failed";
+
+            }
+        }
+
+        // array method with params keyword
+        static void sum (params int[] a)
+        {
+            for (int i = 1; i < a.Length; i++)
+                a[0] += a[i];
+            Console.WriteLine(a[0]);
+        }
 
         static void Main(string[] args)
         {
@@ -297,6 +353,24 @@ namespace myfirstapp
             saymyinfo(i: 78, s: "the rock");
             int resultyy = sums(55, 56, 111);
             Console.WriteLine(resultyy);
+            int val1 = 4;
+            int val2 = 8;
+            Console.WriteLine($" the original values::: value 1:{val1} , value 2:{val2}");
+            swap_value(val1, val2);
+            Console.WriteLine($" values after call by value::: value 1:{val1} , value 2:{val2}");
+            swap_ref(ref val1,ref val2);
+            Console.WriteLine($"values after call by ref::: value 1:{val1} , value 2:{val2}");
+            string grade_char = "f";
+            string grade_exp = "failed";
+            Console.Write("enter your degree:");
+            int degree = int.Parse(Console.ReadLine());
+            string pass_fail_test = grade_test(degree, ref grade_exp, ref grade_char);
+            Console.WriteLine($"you {pass_fail_test} with {grade_char} and {grade_exp}");
+
+            // using array to make a method with alot of parameters
+            sum(1, 2, 3, 4);
+            sum(4, 3, 5, 3);
+
         }
     }
 }
